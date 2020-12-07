@@ -18,7 +18,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
     <title>Weather Dashboard</title>
@@ -45,6 +45,10 @@
                         </svg>
                     </button>
                 </div>
+                <h4>Recent Searches:</h4>
+                <div id="savedCities">
+
+                </div>
             </div>
             <div class="col-9">
                 <div id="cityContainer">
@@ -52,16 +56,19 @@
 
             </div>
         </div>
+    </div>
+    <div class="container">
         <div id="5daycontainer">
             <h3>Five Day Forecast</h3>
-            <div id="fiveDayForecast" class="col-lg-9">
+            <div id="fiveDayForecast">
 
             </div>
-                
+
         </div>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="script.js"></script>
 
 </html>
