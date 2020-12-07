@@ -3,10 +3,13 @@ var APIKey = "&appid=e3ef58b786bc1cbed4ae1585e495bb1b";
 $("#searchBtn").on("click", function () {
   var city = $("#citySearch").val();
   $("#citySearch").val("");
+  $("#cityContainer").empty()
+  $("#fiveDayForecast").empty()
 
   getWeather(city)
   getForecast(city)
 })
+
 
 
 function getWeather(city) {
@@ -21,10 +24,17 @@ function getWeather(city) {
       getUVI(response.coord.lat, response.coord.lon)
 
       // City Name, Weather Icon, Temperature, Humidity, Wind Speed, UV Index
+      city = $("<div>");
+      city.text(response.name)
+      $("#savedCities").append(city)
 
       var cityName = $("<div>");
       cityName.addClass("h1").text(response.name)
       $("#cityContainer").append(cityName)
+
+      var date = $("<div>");
+      date.addClass("h3").text(moment().format("MMM Do YY"));
+      $("#cityContainer").append(date)
 
       var weatherIcon = $("<img>");
       weatherIcon.attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png")
@@ -33,7 +43,7 @@ function getWeather(city) {
 
       var cityTemp = $("<div>");
       console.log((response.main.temp - 273.15) * 1.80 + 32)
-      cityTemp.text("Temperature: " + (Math.floor((response.main.temp - 273.15) * 1.80 + 32)) + "F" )
+      cityTemp.text("Temperature: " + (Math.floor((response.main.temp - 273.15) * 1.80 + 32)) + "F")
       $("#cityContainer").append(cityTemp)
 
       var humidityValue = $("<div>");
@@ -60,7 +70,7 @@ function getForecast(city) {
       for (var i = 0; i < response.list.length; i++) {
         if (response.list[i].dt_txt.includes("12:00:00")) {
           forecastCard(response.list[i])
-          
+
         }
       }
     })
@@ -68,10 +78,15 @@ function getForecast(city) {
 
 function forecastCard(weather) {
   // date, icon, temp humidity
-var weatherIcon = $("<img>");
-weatherIcon.attr("src", "https://openweathermap.org/img/w/" + weather.weather[0].icon + ".png")
-$("#fiveDayForecast").append(weatherIcon);
-//split dt_txt: "2020-08-25 03:00:00"
+  var date = $("<div>");
+  date.addClass("h4").text(moment(weather.dt_txt).format("MMM Do YY"));
+  console.log(weather.dt_txt)
+  $("#fiveDayForecast").append(date)
+
+  var weatherIcon = $("<img>");
+  weatherIcon.attr("src", "https://openweathermap.org/img/w/" + weather.weather[0].icon + ".png")
+  $("#fiveDayForecast").append(weatherIcon);
+  //split dt_txt: "2020-08-25 03:00:00"
 
   // weather.dt_txt.split(" ")
 
@@ -79,13 +94,13 @@ $("#fiveDayForecast").append(weatherIcon);
   // weather.main.humidity
 
   var humidityValue = $("<div>");
-  humidityValue.text("Humidity: " + weather.main.humidity)
+  humidityValue.text("Humidity: " + weather.main.humidity + " %")
   $("#fiveDayForecast").append(humidityValue)
 
-  // var cityTemp = $("<div>");
+  var cityTemp = $("<div>");
   console.log((weather.main.temp - 273.15) * 1.80 + 32)
-  // cityTemp.text("Temperature: " + (Math.floor((weather.main.temp - 273.15) * 1.80 + 32)))
-  // $("#fiveDayForecast").append(cityTemp)
+  cityTemp.text("Temperature: " + (Math.floor((weather.main.temp - 273.15) * 1.80 + 32)) + " F")
+  $("#fiveDayForecast").append(cityTemp)
 
   console.log(forecastCard)
 }
@@ -104,5 +119,6 @@ function getUVI(lat, lon) {
       UVIndex.text("UV: " + response.value)
       $("#cityContainer").append(UVIndex)
     })
-    
+
 }
+
