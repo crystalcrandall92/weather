@@ -10,4 +10,3 @@ Created a weather dashboard that allows user to search by City to display the fo
   humidity
   
   
-![example](weather.png)
